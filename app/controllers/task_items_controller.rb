@@ -16,4 +16,16 @@ class TaskItemsController < ApplicationController
     params[:task_item].permit(:title)
   end
 
+  def destroy
+    @task_item = @task_list.task_items.find(params[:id])
+
+    if @task_item.destroy
+      flash[:success] = 'Task item deleted.'
+    else
+      flash[:error] = 'Task item could not be deleted.'
+    end
+
+    redirect_to @task_list
+  end
+
 end
